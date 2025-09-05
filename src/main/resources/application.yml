@@ -2,3 +2,12 @@
 server:
   port: 8081
 
+my:
+  mod: "happy"
+  content: "helloWorld"
+  author: "huan"
+  today: "Friday"
+
+CloseAndOpen:
+  isClose: true
+  CloseMessage: "关闭了"
