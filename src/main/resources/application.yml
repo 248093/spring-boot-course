@@ -1,0 +1,21 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 8081
+
+my:
+  mod: "happy"
+  content: "helloWorld"
+  author: "huan"
+  today: "Friday"
+
+CloseAndOpen:
+  isClose: true
+  CloseMessage: "关闭了"
+
+lyh:
+  sendMessage:
+    serverPort: "8883"
+    accountSId: "2c94811c9860a9c4019917b3cda61d14"
+    accountToken: "3b551b898c6c43d8a6477a431d74e983"
+    appId: "2c94811c9860a9c4019917b3cf041d1b"
+    templateId: "1"
