@@ -111,7 +111,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>top.lyh.springbootquickstart.SpringBootQuickstartApplication</mainClass>
+                    <mainClass>generator.lyh.springbootquickstart.SpringBootQuickstartApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>
