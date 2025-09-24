@@ -32,5 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 
-spring-boot-course/spring-boot-quickstart/src/main/resources/aliyun-oss.properties
+*.properties
 
