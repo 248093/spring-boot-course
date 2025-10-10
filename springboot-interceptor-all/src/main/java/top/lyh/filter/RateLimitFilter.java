@@ -49,8 +49,10 @@ public class RateLimitFilter implements Filter {
         if (count >= LIMIT_COUNT) {
             httpResponse.setStatus(429);
             httpResponse.getWriter().write("{\"code\":429,\"msg\":\"请求过于频繁，请1分钟后再试\"}");
+            httpResponse.getWriter().close(); // 关闭输出流
             return;
         }
+
 
         if (count == 0) {
             stringRedisTemplate.opsForValue().set(limitKey, "1", LIMIT_SECONDS, TimeUnit.SECONDS);

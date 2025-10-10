@@ -3,6 +3,7 @@ package top.lyh.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import top.lyh.annotation.RequireRole;
 import top.lyh.dto.LoginRequest;
@@ -25,6 +26,9 @@ public class UserController {
      */
     @PostMapping("/login")
     public Result<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+        if (loginRequest != null) {
+            log.error("LoginRequest 对象为 null");
+        }
         log.info("用户登录请求：{}", loginRequest.getUsername());
         if (loginRequest.getUsername() == null || loginRequest.getPassword() == null) {
             return Result.error("用户名和密码不能为空");

@@ -1,6 +1,7 @@
 package top.lyh.config;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Configuration
 @AllArgsConstructor
+@Slf4j
 public class FilterConfig {
     private final LogFilter logFilter;
     private final RateLimitFilter rateLimitFilter;
@@ -36,8 +38,9 @@ public class FilterConfig {
     public FilterRegistrationBean<RateLimitFilter> rateLimitFilterFilterRegistrationBean() {
         FilterRegistrationBean<RateLimitFilter> registration = new FilterRegistrationBean<>();
         registration.setFilter(rateLimitFilter);
+        log.info("RateLimitFilter 配置完成");
         // 仅对/api/pay/路径限流
-        registration.addUrlPatterns("/api/pay/*");
+        registration.addUrlPatterns("/pay/*");
         // 晚于日志过滤器
         registration.setOrder(3);
         return registration;

@@ -1,6 +1,7 @@
 package top.lyh.config;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -10,15 +11,18 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import top.lyh.interceptor.BusinessLogInterceptor;
+import top.lyh.interceptor.ParamValidateInterceptor;
 import top.lyh.interceptor.RoleAuthInterceptor;
 import top.lyh.interceptor.TimeStatInterceptor;
 
 @Configuration
 @AllArgsConstructor
+@Slf4j
 public class WebMvcConfig implements WebMvcConfigurer {
     private final TimeStatInterceptor timeStatInterceptor;
     private final BusinessLogInterceptor businessLogInterceptor;
     private final RoleAuthInterceptor roleAuthInterceptor;
+//    private final ParamValidateInterceptor paramValidateInterceptor;
 
     @Bean
     public CorsFilter corsFilter() {
@@ -37,12 +41,24 @@ public class WebMvcConfig implements WebMvcConfigurer {
         // 注册耗时统计拦截器，此处省略
         // 注册业务日志拦截器，此处省略
         // 注册权限拦截器
+
+
+//        registry.addInterceptor(paramValidateInterceptor)
+//                .addPathPatterns("/api/*")
+//                // 优先于权限拦截器
+//                .order(0);
         registry.addInterceptor(roleAuthInterceptor)
                 .addPathPatterns("/api/**")
                 // 注册登录接口不拦截
-                .excludePathPatterns("/user/login", "/user/register")
+                .excludePathPatterns("/api/login", "/api/register")
                 // 晚于 TimeStatInterceptor 执行
                 .order(3);
+        registry.addInterceptor(timeStatInterceptor)
+                .addPathPatterns("/api/**")
+                .order(1);
+        registry.addInterceptor(businessLogInterceptor)
+                .addPathPatterns("/api/**")
+                .order(2);
     }
     @Override
     public void addCorsMappings(CorsRegistry registry) {
